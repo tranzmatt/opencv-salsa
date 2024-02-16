@@ -106,7 +106,7 @@ Depends: libopencv-calib3d-dev (= ${binary:Version}),
          libopencv-videoio-dev (= ${binary:Version}),
          libopencv-videostab-dev (= ${binary:Version}),
          libopencv-viz-dev (= ${binary:Version}),
-         pkg-config,
+         pkgconf,
          ${misc:Depends},
          ${shlibs:Depends},
          libilmbase-dev
