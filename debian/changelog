@@ -1,3 +1,10 @@
+opencv (4.6.0+dfsg-13.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Rename libraries for 64-bit time_t transition.  Closes: #1062839
+
+ -- Benjamin Drung <bdrung@debian.org>  Thu, 29 Feb 2024 03:07:04 +0000
+
 opencv (4.6.0+dfsg-13) unstable; urgency=medium
 
   * Embed and enable the 3rdparty source for QUIRC as per user request.
