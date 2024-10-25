@@ -10,11 +10,11 @@ check_include_file function to do the check so it succeeds.
  cmake/OpenCVFindLAPACK.cmake | 19 ++++---------------
  1 file changed, 4 insertions(+), 15 deletions(-)
 
-diff --git a/cmake/OpenCVFindLAPACK.cmake b/cmake/OpenCVFindLAPACK.cmake
-index 9b1b60f..f51479b 100644
---- a/cmake/OpenCVFindLAPACK.cmake
-+++ b/cmake/OpenCVFindLAPACK.cmake
-@@ -1,22 +1,11 @@
+Index: opencv/cmake/OpenCVFindLAPACK.cmake
+===================================================================
+--- opencv.orig/cmake/OpenCVFindLAPACK.cmake
++++ opencv/cmake/OpenCVFindLAPACK.cmake
+@@ -24,22 +24,11 @@ OCV_OPTION(OPENCV_OSX_USE_ACCELERATE_NEW
  macro(_find_header_file_in_dirs VAR NAME)
    unset(${VAR})
    unset(${VAR} CACHE)
