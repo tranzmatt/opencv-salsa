@@ -354,7 +354,7 @@ static bool ocl_GaussianBlur_8UC1(InputArray _src, OutputArray _dst, Size ksize,
 
     const char * const borderMap[] = { "BORDER_CONSTANT", "BORDER_REPLICATE", "BORDER_REFLECT", 0, "BORDER_REFLECT_101" };
     char build_opts[1024];
-    sprintf(build_opts, "-D %s %s%s", borderMap[borderType & ~BORDER_ISOLATED],
+    snprintf(build_opts, sizeof(build_opts), "-D %s %s%s", borderMap[borderType & ~BORDER_ISOLATED],
             ocl::kernelToStr(kernelX, CV_32F, "KERNEL_MATRIX_X").c_str(),
             ocl::kernelToStr(kernelY, CV_32F, "KERNEL_MATRIX_Y").c_str());
 
@@ -635,6 +635,9 @@ void GaussianBlur(InputArray _src, OutputArray _dst, Size ksize,
         return;
     }
 
+    if (sigma2 <= 0)
+        sigma2 = sigma1;
+
     bool useOpenCL = ocl::isOpenCLActivated() && _dst.isUMat() && _src.dims() <= 2 &&
                _src.rows() >= ksize.height && _src.cols() >= ksize.width &&
                ksize.width > 1 && ksize.height > 1;
@@ -680,8 +683,22 @@ void GaussianBlur(InputArray _src, OutputArray _dst, Size ksize,
 
             if (src.data == dst.data)
                 src = src.clone();
+
+            if ((sigma1 == 0.0) && (sigma2 == 0.0) && (ksize.height == ksize.width))
+            {
+                Point ofs;
+                Size wsz(src.cols, src.rows);
+                Mat src2 = src;
+                if(!(borderType & BORDER_ISOLATED))
+                    src2.locateROI( wsz, ofs );
+
+                CALL_HAL(gaussianBlurBinomial, cv_hal_gaussianBlurBinomial, src2.ptr(), src2.step, dst.ptr(), dst.step, src2.cols, src2.rows, sdepth, cn,
+                         ofs.x, ofs.y, wsz.width - src2.cols - ofs.x,  wsz.height - src2.rows - ofs.y, ksize.width, borderType&~BORDER_ISOLATED);
+            }
+
             CV_CPU_DISPATCH(GaussianBlurFixedPoint, (src, dst, (const uint16_t*)&fkx[0], (int)fkx.size(), (const uint16_t*)&fky[0], (int)fky.size(), borderType),
                 CV_CPU_DISPATCH_MODES_ALL);
+
             return;
         }
     }
@@ -717,8 +734,22 @@ void GaussianBlur(InputArray _src, OutputArray _dst, Size ksize,
 
             if (src.data == dst.data)
                 src = src.clone();
+
+            if ((sigma1 == 0.0) && (sigma2 == 0.0) && (ksize.height == ksize.width))
+            {
+                Point ofs;
+                Size wsz(src.cols, src.rows);
+                Mat src2 = src;
+                if(!(borderType & BORDER_ISOLATED))
+                    src2.locateROI( wsz, ofs );
+
+                CALL_HAL(gaussianBlurBinomial, cv_hal_gaussianBlurBinomial, src2.ptr(), src2.step, dst.ptr(), dst.step, src2.cols, src2.rows, sdepth, cn,
+                         ofs.x, ofs.y, wsz.width - src2.cols - ofs.x,  wsz.height - src2.rows - ofs.y, ksize.width, borderType&~BORDER_ISOLATED);
+            }
+
             CV_CPU_DISPATCH(GaussianBlurFixedPoint, (src, dst, (const uint32_t*)&fkx[0], (int)fkx.size(), (const uint32_t*)&fky[0], (int)fky.size(), borderType),
                 CV_CPU_DISPATCH_MODES_ALL);
+
             return;
         }
     }
@@ -781,7 +812,7 @@ cvSmooth( const void* srcarr, void* dstarr, int smooth_type,
         cv::bilateralFilter( src, dst, param1, param3, param4, cv::BORDER_REPLICATE );
 
     if( dst.data != dst0.data )
-        CV_Error( CV_StsUnmatchedFormats, "The destination image does not have the proper type" );
+        CV_Error( cv::Error::StsUnmatchedFormats, "The destination image does not have the proper type" );
 }
 
 /* End of file. */

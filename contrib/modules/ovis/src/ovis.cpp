@@ -453,7 +453,8 @@ public:
         if(tus->getTextureName() != name)
         {
             RTShader::ShaderGenerator::getSingleton().invalidateMaterial(
-                RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME, *bgplane->getMaterial());
+                RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME, bgplane->getMaterial()->getName(),
+                RESOURCEGROUP_NAME);
 
             tus->setTextureName(name);
             tus->setTextureAddressingMode(TAM_CLAMP);
@@ -587,6 +588,7 @@ public:
         cam->setDebugDisplayEnabled(true);
         cam->setNearClipDistance(1e-9);
         cam->setFarClipDistance(zFar);
+        cam->getFrustumExtents(); // force update
 
         _setCameraIntrinsics(cam, K, imsize);
 

@@ -76,13 +76,26 @@ class CV_EXPORTS_W FreeType2 : public Algorithm
 public:
 /** @brief Load font data.
 
-The function loadFontData loads font data.
+The function loadFontData loads font data from file.
 
 @param fontFileName FontFile Name
-@param id face_index to select a font faces in a single file.
+@param idx face_index to select a font faces in a single file.
 */
 
-    CV_WRAP virtual void loadFontData(String fontFileName, int id) = 0;
+    CV_WRAP virtual void loadFontData(String fontFileName, int idx) = 0;
+
+/** @brief Load font data.
+
+The function loadFontData loads font data from memory.
+The data is not copied, the user needs to make sure the data lives at least as long as FreeType2.
+After the FreeType2 object is destroyed, the buffer can be safely deallocated.
+
+@param pBuf pointer to buffer containing font data
+@param bufSize size of buffer
+@param idx face_index to select a font faces in a single file.
+*/
+
+    CV_WRAP virtual void loadFontData(char* pBuf, size_t bufSize, int idx) = 0;
 
 /** @brief Set Split Number from Bezier-curve to line
 
@@ -99,7 +112,7 @@ If you want to draw small glyph, small is better.
 
 The function putText renders the specified text string in the image. Symbols that cannot be rendered using the specified font are replaced by "Tofu" or non-drawn.
 
-@param img Image. (Only 8UC3 image is supported.)
+@param img Image. (Only 8UC1/8UC3/8UC4 2D mat is supported.)
 @param text Text string to be drawn.
 @param org Bottom-left/Top-left corner of the text string in the image.
 @param fontHeight Drawing font size by pixel unit.
@@ -123,7 +136,7 @@ That is, the following code renders some text, the tight box surrounding it, and
     String text = "Funny text inside the box";
     int fontHeight = 60;
     int thickness = -1;
-    int linestyle = 8;
+    int linestyle = LINE_8;
 
     Mat img(600, 800, CV_8UC3, Scalar::all(0));
 

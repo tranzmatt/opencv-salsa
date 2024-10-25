@@ -32,8 +32,9 @@
 #include <Eigen/LU>
 #include <Eigen/QR>
 #include <Eigen/SVD>
+#include <cassert>
 
-#if !defined(__MINGW64__)
+#if !defined(__MINGW32__)
 #  if defined(_WIN32) || defined(__APPLE__) || \
       defined(__FreeBSD__) || defined(__NetBSD__)
 static void sincos(double x, double *sinx, double *cosx) {
@@ -41,7 +42,7 @@ static void sincos(double x, double *sinx, double *cosx) {
   *cosx = cos(x);
 }
 #  endif
-#endif  // !__MINGW64__
+#endif  // !__MINGW32__
 
 #if (defined(_WIN32)) && !defined(__MINGW32__)
 inline long lround(double d) {

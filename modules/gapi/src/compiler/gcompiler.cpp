@@ -33,6 +33,7 @@
 #include "compiler/passes/pattern_matching.hpp"
 
 #include "executor/gexecutor.hpp"
+#include "executor/gthreadedexecutor.hpp"
 #include "executor/gstreamingexecutor.hpp"
 #include "backends/common/gbackend.hpp"
 #include "backends/common/gmetabackend.hpp"
@@ -338,7 +339,7 @@ void cv::gimpl::GCompiler::validateInputMeta()
             return util::holds_alternative<cv::GOpaqueDesc>(meta);
 
         default:
-            GAPI_Assert(false);
+            GAPI_Error("InternalError");
         }
         return false; // should never happen
     };
@@ -452,8 +453,16 @@ cv::GCompiled cv::gimpl::GCompiler::produceCompiled(GPtr &&pg)
         .get<OutputMeta>().outMeta;
     // FIXME: select which executor will be actually used,
     // make GExecutor abstract.
-    std::unique_ptr<GExecutor> pE(new GExecutor(std::move(pg)));
 
+    auto use_threaded_exec = cv::gapi::getCompileArg<cv::use_threaded_executor>(m_args);
+    std::unique_ptr<GAbstractExecutor> pE;
+    if (use_threaded_exec) {
+        const auto num_threads = use_threaded_exec.value().num_threads;
+        GAPI_LOG_INFO(NULL, "Threaded executor with " << num_threads << " thread(s) will be used");
+        pE.reset(new GThreadedExecutor(num_threads, std::move(pg)));
+    } else {
+        pE.reset(new GExecutor(std::move(pg)));
+    }
     GCompiled compiled;
     compiled.priv().setup(m_metas, outMetas, std::move(pE));
 
@@ -485,7 +494,7 @@ cv::GStreamingCompiled cv::gimpl::GCompiler::produceStreamingCompiled(GPtr &&pg)
         // Otherwise, set it up with executor object only
         compiled.priv().setup(std::move(pE));
     }
-    else GAPI_Assert(false && "Impossible happened -- please report a bug");
+    else GAPI_Error("Impossible happened -- please report a bug");
     return compiled;
 }
 

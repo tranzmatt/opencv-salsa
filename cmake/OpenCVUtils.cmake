@@ -868,6 +868,7 @@ macro(ocv_check_modules define)
           list(APPEND _libs_paths ${CMAKE_MATCH_1})
         elseif(IS_ABSOLUTE "${flag}"
             OR flag STREQUAL "-lstdc++"
+            OR flag STREQUAL "-latomic"
         )
           list(APPEND _libs "${flag}")
         elseif(flag MATCHES "^-l(.*)")
@@ -1093,6 +1094,18 @@ macro(ocv_list_filterout lst regex)
     endif()
   endforeach()
 endmacro()
+
+# Usage: ocv_list_filterout_ex(list_name regex1 regex2 ...)
+macro(ocv_list_filterout_ex lst)
+  foreach(regex ${ARGN})
+    foreach(item ${${lst}})
+      if(item MATCHES "${regex}")
+        list(REMOVE_ITEM ${lst} "${item}")
+      endif()
+    endforeach()
+  endforeach()
+endmacro()
+
 
 # filter matching elements from the list
 macro(ocv_list_filter lst regex)
@@ -1417,6 +1430,18 @@ macro(ocv_parse_header2 LIBNAME HDR_PATH VARNAME)
   endif()
 endmacro()
 
+# set ${LIBNAME}_VERSION_STRING to ${LIBVER} without quotes
+macro(ocv_parse_header_version LIBNAME HDR_PATH LIBVER)
+  ocv_clear_vars(${LIBNAME}_VERSION_STRING)
+  set(${LIBNAME}_H "")
+  if(EXISTS "${HDR_PATH}")
+    file(STRINGS "${HDR_PATH}" ${LIBNAME}_H REGEX "^#define[ \t]+${LIBVER}[ \t]+\"[^\"]*\".*$" LIMIT_COUNT 1)
+  endif()
+  if(${LIBNAME}_H)
+    string(REGEX REPLACE "^.*[ \t]${LIBVER}[ \t]+\"(.+)\"$" "\\1" ${LIBNAME}_VERSION_STRING "${${LIBNAME}_H}")
+  endif()
+endmacro()
+
 ################################################################################################
 # short command to setup source group
 function(ocv_source_group group)
@@ -1532,13 +1557,23 @@ function(_ocv_append_target_includes target)
   endif()
 endfunction()
 
+macro(ocv_add_cuda_compile_flags)
+  ocv_cuda_compile_flags()
+  target_compile_options(${target} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>: ${CUDA_NVCC_FLAGS}
+  "-Xcompiler=${CMAKE_CXX_FLAGS_CUDA} $<$<CONFIG:Debug>:${CMAKE_CXX_FLAGS_DEBUG_CUDA}> \
+  $<$<CONFIG:Release>:${CMAKE_CXX_FLAGS_RELEASE_CUDA}>" >)
+endmacro()
+
 function(ocv_add_executable target)
   add_executable(${target} ${ARGN})
+  if(ENABLE_CUDA_FIRST_CLASS_LANGUAGE AND HAVE_CUDA)
+    ocv_add_cuda_compile_flags()
+  endif()
   _ocv_append_target_includes(${target})
 endfunction()
 
 function(ocv_add_library target)
-  if(HAVE_CUDA AND ARGN MATCHES "\\.cu")
+  if(NOT ENABLE_CUDA_FIRST_CLASS_LANGUAGE AND HAVE_CUDA AND ARGN MATCHES "\\.cu")
     ocv_include_directories(${CUDA_INCLUDE_DIRS})
     ocv_cuda_compile(cuda_objs ${ARGN})
     set(OPENCV_MODULE_${target}_CUDA_OBJECTS ${cuda_objs} CACHE INTERNAL "Compiled CUDA object files")
@@ -1546,12 +1581,16 @@ function(ocv_add_library target)
 
   add_library(${target} ${ARGN} ${cuda_objs})
 
+  if(ENABLE_CUDA_FIRST_CLASS_LANGUAGE AND HAVE_CUDA)
+    ocv_add_cuda_compile_flags()
+  endif()
+
   if(APPLE_FRAMEWORK AND BUILD_SHARED_LIBS)
     message(STATUS "Setting Apple target properties for ${target}")
 
     set(CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG 1)
 
-    if(IOS AND NOT MAC_CATALYST)
+    if((IOS OR XROS) AND NOT MAC_CATALYST)
       set(OPENCV_APPLE_INFO_PLIST "${CMAKE_BINARY_DIR}/ios/Info.plist")
     else()
       set(OPENCV_APPLE_INFO_PLIST "${CMAKE_BINARY_DIR}/osx/Info.plist")
@@ -1619,6 +1658,23 @@ function(ocv_add_external_target name inc link def)
   endif()
 endfunction()
 
+set(__OPENCV_EXPORTED_EXTERNAL_TARGETS "" CACHE INTERNAL "")
+function(ocv_install_used_external_targets)
+  if(NOT BUILD_SHARED_LIBS
+      AND NOT (CMAKE_VERSION VERSION_LESS "3.13.0")  # upgrade CMake: https://gitlab.kitware.com/cmake/cmake/-/merge_requests/2152
+  )
+    foreach(tgt in ${ARGN})
+      if(tgt MATCHES "^ocv\.3rdparty\.")
+        list(FIND __OPENCV_EXPORTED_EXTERNAL_TARGETS "${tgt}" _found)
+        if(_found EQUAL -1)  # don't export target twice
+          install(TARGETS ${tgt} EXPORT OpenCVModules)
+          list(APPEND __OPENCV_EXPORTED_EXTERNAL_TARGETS "${tgt}")
+          set(__OPENCV_EXPORTED_EXTERNAL_TARGETS "${__OPENCV_EXPORTED_EXTERNAL_TARGETS}" CACHE INTERNAL "")
+        endif()
+      endif()
+    endforeach()
+  endif()
+endfunction()
 
 # Returns the first non-interface target
 function(ocv_get_imported_target imported interface)

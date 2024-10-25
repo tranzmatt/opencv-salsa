@@ -164,18 +164,12 @@ protected:
 private: // methods aux
     void get_subbox_chart_physical(
         const std::vector<cv::Point2f> &points,
-        std::vector<cv::Point2f> &chartPhy,
-        cv::Size &size);
+        std::vector<cv::Point2f> &chartPhy);
 
     void reduce_array(
         const std::vector<float> &x,
         std::vector<float> &x_new,
         float tol);
-
-    void transform_points_forward(
-        InputArray T,
-        const std::vector<cv::Point2f> &X,
-        std::vector<cv::Point2f> &Xt);
 
     void transform_points_inverse(
         InputArray T,

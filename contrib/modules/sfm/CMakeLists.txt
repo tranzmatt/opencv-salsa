@@ -9,17 +9,17 @@ find_package(Ceres QUIET)
 if(NOT Gflags_FOUND)  # Ceres find gflags on the own, so separate search isn't necessary
   find_package(Gflags QUIET)
 endif()
-if(NOT Glog_FOUND)  # Ceres find glog on the own, so separate search isn't necessary
+if(NOT (Glog_FOUND OR glog_FOUND))  # Ceres find glog on the own, so separate search isn't necessary
   find_package(Glog QUIET)
 endif()
 
-if(NOT Gflags_FOUND OR NOT Glog_FOUND)
+if(NOT Gflags_FOUND OR NOT (Glog_FOUND OR glog_FOUND))
   # try local search scripts
   list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
   if(NOT Gflags_FOUND)
     find_package(Gflags QUIET)
   endif()
-  if(NOT Glog_FOUND)
+  if(NOT (Glog_FOUND OR glog_FOUND))
     find_package(Glog QUIET)
   endif()
 endif()
@@ -88,16 +88,16 @@ set(LIBMV_LIGHT_INCLUDES
 )
 
 set(LIBMV_LIGHT_LIBS
-  correspondence
-  multiview
-  numeric
+  opencv.sfm.correspondence
+  opencv.sfm.multiview
+  opencv.sfm.numeric
   ${GLOG_LIBRARIES}
   ${GFLAGS_LIBRARIES}
 )
 
 if(Ceres_FOUND)
   add_definitions("-DCERES_FOUND=1")
-  list(APPEND LIBMV_LIGHT_LIBS simple_pipeline)
+  list(APPEND LIBMV_LIGHT_LIBS opencv.sfm.simple_pipeline)
   if(Ceres_VERSION VERSION_LESS 2.0.0)
     list(APPEND LIBMV_LIGHT_INCLUDES "${CERES_INCLUDE_DIRS}")
   endif()
