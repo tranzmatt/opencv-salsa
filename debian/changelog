@@ -1,3 +1,11 @@
+opencv (4.10.0+dfsg-1) UNRELEASED; urgency=medium
+
+  [ Mo Zhou ]
+  * New upstream version 4.10.0+dfsg
+  * copyright: execlude one more lena image from 4.10.0 release.
+
+ -- Mo Zhou <lumin@debian.org>  Fri, 25 Oct 2024 18:41:32 -0400
+
 opencv (4.6.0+dfsg-14) unstable; urgency=medium
 
   * Team upload.
