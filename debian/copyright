@@ -229,7 +229,7 @@ Copyright: 2004-2008 Sam Hocevar <sam@zoy.org>
 License: BSD-3-clause
 
 # /* embedded sources */
-Files: debian/3rdparty-4.6.0/quirc/*
+Files: debian/3rdparty-4.10.0/quirc/*
 Copyright: 2010-2012, Daniel Beer <dlbeer@gmail.com>
 License: ISC
 Comment: We embed this code because it has been removed through Files-Excluded: 3rdparty.
