@@ -28,7 +28,7 @@ else ifeq ($(DEB_HOST_ARCH_CPU),ppc64el)
 endif
 
 # TBB support
-ifneq (,$(findstring $(DEB_HOST_ARCH), amd64 arm64 armel armhf i386 mips mips64el mipsel ppc64el s390x powerpc powerpcspe riscv64 ppc64 sh4 sparc64))
+ifneq (,$(findstring $(DEB_HOST_ARCH), amd64 arm64 armel armhf i386 mips mips64el ppc64el s390x powerpc powerpcspe riscv64 ppc64 sh4 sparc64))
 CMAKE_ARCH_FLAGS += -DWITH_TBB=ON
 else
 CMAKE_ARCH_FLAGS += -DWITH_TBB=OFF
@@ -48,13 +48,7 @@ ifeq (,$(filter $(DEB_HOST_ARCH), hppa hurd-i386 kfreebsd-i386 kfreebsd-amd64))
 CMAKE_JAVA_FLAGS += -DBUILD_JAVA=ON
 endif
 
-# mitigate compiler OOM during build
-ifeq ($(DEB_HOST_ARCH),mipsel)
-export DEB_BUILD_OPTIONS=noopt
-CXXFLAGS+=-gsplit-dwarf
-endif
-
-ifneq (,$(filter $(DEB_HOST_ARCH), armel m68k mipsel powerpc sh4))
+ifneq (,$(filter $(DEB_HOST_ARCH), armel m68k powerpc sh4))
 export DEB_LDFLAGS_MAINT_APPEND += -Wl,--no-as-needed -latomic -Wl,--as-needed
 endif
 
@@ -171,16 +165,6 @@ override_dh_auto_configure:
 override_dh_auto_build:
 	# documentation
 	dh_auto_build -B $(BUILDDIR) -- doxygen
-ifneq (,$(findstring $(DEB_HOST_ARCH), mipsel))
-	# dynamically linked
-	dh_auto_build --no-parallel -B $(BUILDDIR)
-	# statically linked
-	dh_auto_build --no-parallel -B $(BUILDDIR)-static
-	# Python extension
-	dh_auto_build --no-parallel -S pybuild \
-		-- --name=opencv --system=custom \
-		--build-args "dh_auto_build -B {build_dir}"
-else
 	# dynamically linked
 	dh_auto_build -B $(BUILDDIR)
 	# statically linked
@@ -189,19 +173,9 @@ else
 	dh_auto_build -S pybuild \
 		-- --name=opencv --system=custom \
 		--build-args "dh_auto_build -B {build_dir}"
-endif
 
 override_dh_auto_test:
-ifeq ($(DEB_HOST_ARCH),mipsel)
-	true # Don't run the tests at all
-else
 	-LD_LIBRARY_PATH=$(shell realpath $(BUILDDIR))/lib dh_auto_test
-endif
-
-ifeq ($(DEB_HOST_ARCH),mipsel)
-override_dh_dwz:
-	true # mipsel would FTBFS, possibly due to out-of-memory
-endif
 
 override_dh_auto_install:
 	dh_auto_install -B $(BUILDDIR)
