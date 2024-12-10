@@ -3,10 +3,6 @@ usr/include/opencv4/opencv2/aruco/*
 usr/include/opencv4/opencv2/aruco.hpp
 usr/lib/*/libopencv_aruco.a
 usr/lib/*/libopencv_aruco.so
-# barcode
-usr/include/opencv4/opencv2/barcode.hpp
-usr/lib/*/libopencv_barcode.a
-usr/lib/*/libopencv_barcode.so
 # bgsegm
 # usr/include/opencv4/opencv2/bgsegm/*
 usr/include/opencv4/opencv2/bgsegm.hpp
