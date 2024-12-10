@@ -169,14 +169,13 @@ Description: development files for libopencv-core410
 
 Package: libopencv-core410
 Provides: ${t64:Provides}
-Replaces: libopencv-core406
 Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libopencv-core406 (<< ${source:Version}), libopencv-core4.5 (<< 4.6),
+Breaks: libopencv-core4.5 (<< 4.6),
 Description: computer vision core library
  This package contains the OpenCV (Open Computer Vision) core runtime libraries.
  .
@@ -213,8 +212,6 @@ Description: development files for libopencv-ml410
 
 Package: libopencv-ml410
 Provides: ${t64:Provides}
-Replaces: libopencv-ml406
-Breaks: libopencv-ml406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -258,8 +255,6 @@ Description: development files for libopencv-imgproc410
 
 Package: libopencv-imgproc410
 Provides: ${t64:Provides}
-Replaces: libopencv-imgproc406
-Breaks: libopencv-imgproc406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -304,8 +299,6 @@ Description: development files for libopencv-imgcodecs410
 
 Package: libopencv-imgcodecs410
 Provides: ${t64:Provides}
-Replaces: libopencv-imgcodecs406
-Breaks: libopencv-imgcodecs406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -349,8 +342,6 @@ Description: development files for libopencv-video410
 
 Package: libopencv-video410
 Provides: ${t64:Provides}
-Replaces: libopencv-video406
-Breaks: libopencv-video406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -395,8 +386,6 @@ Description: development files for libopencv-videoio410
 
 Package: libopencv-videoio410
 Provides: ${t64:Provides}
-Replaces: libopencv-videoio406
-Breaks: libopencv-videoio406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -441,8 +430,6 @@ Description: development files for libopencv-objdetect410
 
 Package: libopencv-objdetect410
 Provides: ${t64:Provides}
-Replaces: libopencv-objdetect406
-Breaks: libopencv-objdetect406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -497,8 +484,6 @@ Description: development files for libopencv-highgui410
 
 Package: libopencv-highgui410
 Provides: ${t64:Provides}
-Replaces: libopencv-highgui406
-Breaks: libopencv-highgui406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -542,8 +527,6 @@ Description: development files for libopencv-calib3d410
 
 Package: libopencv-calib3d410
 Provides: ${t64:Provides}
-Replaces: libopencv-calib3d406
-Breaks: libopencv-calib3d406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -588,8 +571,6 @@ Description: development files for libopencv-flann410
 
 Package: libopencv-flann410
 Provides: ${t64:Provides}
-Replaces: libopencv-flann406
-Breaks: libopencv-flann406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -633,8 +614,6 @@ Description: development files for libopencv-dnn410
 
 Package: libopencv-dnn410
 Provides: ${t64:Provides}
-Replaces: libopencv-dnn406
-Breaks: libopencv-dnn406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -681,8 +660,6 @@ Description: development files for libopencv-features2d410
 
 Package: libopencv-features2d410
 Provides: ${t64:Provides}
-Replaces: libopencv-features2d406
-Breaks: libopencv-features2d406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -727,8 +704,6 @@ Description: development files for libopencv-photo410
 
 Package: libopencv-photo410
 Provides: ${t64:Provides}
-Replaces: libopencv-photo406
-Breaks: libopencv-photo406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -775,8 +750,6 @@ Description: development files for libopencv-videostab410
 
 Package: libopencv-videostab410
 Provides: ${t64:Provides}
-Replaces: libopencv-videostab406
-Breaks: libopencv-videostab406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -821,8 +794,6 @@ Description: development files for libopencv-stitching410
 
 Package: libopencv-stitching410
 Provides: ${t64:Provides}
-Replaces: libopencv-stitching406
-Breaks: libopencv-stitching406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -867,8 +838,6 @@ Description: development files for libopencv-shape410
 
 Package: libopencv-shape410
 Provides: ${t64:Provides}
-Replaces: libopencv-shape406
-Breaks: libopencv-shape406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -913,8 +882,6 @@ Description: development files for libopencv-superres410
 
 Package: libopencv-superres410
 Provides: ${t64:Provides}
-Replaces: libopencv-superres406
-Breaks: libopencv-superres406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -959,8 +926,6 @@ Description: development files for libopencv-viz410
 
 Package: libopencv-viz410
 Provides: ${t64:Provides}
-Replaces: libopencv-viz406
-Breaks: libopencv-viz406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -1026,6 +991,7 @@ Description: computer vision 3D data visualization library
 # of high level functionalities for video acquisition, image processing and
 # analysis, structural analysis, motion analysis and object tracking, object
 # recognition, camera calibration and 3D reconstruction.
+
 Package: libopencv-contrib-dev
 Architecture: any
 Multi-Arch: same
@@ -1066,8 +1032,6 @@ Description: development files for libopencv-contrib410
 
 Package: libopencv-contrib410
 Provides: ${t64:Provides}
-Replaces: libopencv-contrib406
-Breaks: libopencv-contrib406 (<< ${source:Version})
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -1103,6 +1067,7 @@ Description: computer vision contrlib library
    - rgbd
    - saliency
    - sfm
+   - signal
    - stereo
    - structured_light
    - surface_matching
@@ -1126,7 +1091,7 @@ Package: libopencv-java
 Architecture: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x alpha ia64 m68k powerpc ppc64 riscv64 sh4 sparc64 x32
 Multi-Arch: no
 Section: java
-Depends: libopencv406-jni (>= ${binary:Version}), ${misc:Depends}
+Depends: libopencv410-jni (>= ${binary:Version}), ${misc:Depends}
 Breaks: libopencv4.5-java,
 Replaces: libopencv4.5-java,
 Description: Java bindings for the computer vision library
@@ -1143,7 +1108,7 @@ Description: Java bindings for the computer vision library
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv406-jni
+Package: libopencv410-jni
 Architecture: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x alpha ia64 m68k powerpc ppc64 riscv64 sh4 sparc64 x32
 Multi-Arch: no
 Section: java

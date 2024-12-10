@@ -4,7 +4,7 @@
     <groupId>org.opencv</groupId>
     <artifactId>opencv</artifactId>
     <packaging>jar</packaging>
-    <version>4.6.0</version>
+    <version>4.10.0</version>
     <name>OpenCV</name>
     <licenses>
         <license>
