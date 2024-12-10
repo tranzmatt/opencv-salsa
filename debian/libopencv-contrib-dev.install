@@ -170,3 +170,8 @@ usr/include/opencv4/opencv2/mcc/checker_detector.hpp
 usr/include/opencv4/opencv2/mcc/checker_model.hpp
 usr/lib/*/libopencv_mcc.a
 usr/lib/*/libopencv_mcc.so
+# signal
+usr/include/opencv4/opencv2/signal.hpp
+usr/include/opencv4/opencv2/signal/signal_resample.hpp
+usr/lib/*/libopencv_signal.a
+usr/lib/*/libopencv_signal.so
