@@ -1,5 +1,4 @@
 usr/lib/*/libopencv_aruco.so.*
-usr/lib/*/libopencv_barcode.so.*
 usr/lib/*/libopencv_bgsegm.so.*
 usr/lib/*/libopencv_bioinspired.so.*
 usr/lib/*/libopencv_ccalib.so.*
