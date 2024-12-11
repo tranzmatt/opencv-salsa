@@ -1,4 +1,4 @@
-opencv (4.10.0+dfsg-1) UNRELEASED; urgency=medium
+opencv (4.10.0+dfsg-1) experimental; urgency=medium
 
   * New upstream version 4.10.0+dfsg
     * copyright: execlude one more lena image from 4.10.0 release.
@@ -13,8 +13,9 @@ opencv (4.10.0+dfsg-1) UNRELEASED; urgency=medium
     They are no longer needed.
   * Bump version in Java package control files.
   * Update lintian overrides and copyright file.
+  * Upload to experimental.
 
- -- Mo Zhou <lumin@debian.org>  Tue, 10 Dec 2024 23:30:16 -0500
+ -- Mo Zhou <lumin@debian.org>  Tue, 10 Dec 2024 23:40:09 -0500
 
 opencv (4.6.0+dfsg-14) unstable; urgency=medium
 
