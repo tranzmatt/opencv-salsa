@@ -1,10 +1,20 @@
 opencv (4.10.0+dfsg-1) UNRELEASED; urgency=medium
 
-  [ Mo Zhou ]
   * New upstream version 4.10.0+dfsg
-  * copyright: execlude one more lena image from 4.10.0 release.
+    * copyright: execlude one more lena image from 4.10.0 release.
+    * Sync the 3rdparty quirc library to 4.10.0 version.
+    * Bump SOVERSION to 410.
+  * Rebase existing patches, refresh existing ones and remove merged ones.
+  * d/rules: Specify WITH_FLATBUFFERS=OFF.
+  * rules: Delete code for mipsel architecture.
+  * Update install files: `barcode` module was merged into objdetect.
+  * Install the new signal module from contrib.
+  * Remove the Breaks+Replaces introduced during the t64 transition --
+    They are no longer needed.
+  * Bump version in Java package control files.
+  * Update lintian overrides and copyright file.
 
- -- Mo Zhou <lumin@debian.org>  Fri, 25 Oct 2024 18:41:32 -0400
+ -- Mo Zhou <lumin@debian.org>  Tue, 10 Dec 2024 23:30:16 -0500
 
 opencv (4.6.0+dfsg-14) unstable; urgency=medium
 
