@@ -8,8 +8,10 @@ Signed-off-by: Nobuhiro Iwamatsu <iwamatsu@debian.org>
  doc/header.html | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/doc/header.html
-+++ b/doc/header.html
+Index: opencv/doc/header.html
+===================================================================
+--- opencv.orig/doc/header.html	2024-12-11 01:59:52.659062466 +0000
++++ opencv/doc/header.html	2024-12-11 01:59:52.659062466 +0000
 @@ -9,7 +9,7 @@
  <!--BEGIN !PROJECT_NAME--><title>$title</title><!--END !PROJECT_NAME-->
  <link href="$relpath^opencv.ico" rel="shortcut icon" type="image/x-icon" />

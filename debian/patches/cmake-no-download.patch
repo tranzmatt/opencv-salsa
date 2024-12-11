@@ -1,8 +1,8 @@
 Index: opencv/cmake/OpenCVDownload.cmake
 ===================================================================
---- opencv.orig/cmake/OpenCVDownload.cmake
-+++ opencv/cmake/OpenCVDownload.cmake
-@@ -40,263 +40,11 @@ file(REMOVE "${OPENCV_DOWNLOAD_WITH_WGET
+--- opencv.orig/cmake/OpenCVDownload.cmake	2024-12-11 01:59:53.471039798 +0000
++++ opencv/cmake/OpenCVDownload.cmake	2024-12-11 01:59:53.471039798 +0000
+@@ -40,263 +40,11 @@
  ocv_check_environment_variables(OPENCV_DOWNLOAD_MIRROR_ID)
  
  function(ocv_init_download_mirror)

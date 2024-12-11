@@ -12,9 +12,9 @@ check_include_file function to do the check so it succeeds.
 
 Index: opencv/cmake/OpenCVFindLAPACK.cmake
 ===================================================================
---- opencv.orig/cmake/OpenCVFindLAPACK.cmake
-+++ opencv/cmake/OpenCVFindLAPACK.cmake
-@@ -24,22 +24,11 @@ OCV_OPTION(OPENCV_OSX_USE_ACCELERATE_NEW
+--- opencv.orig/cmake/OpenCVFindLAPACK.cmake	2024-12-11 01:59:53.067051076 +0000
++++ opencv/cmake/OpenCVFindLAPACK.cmake	2024-12-11 01:59:53.063051188 +0000
+@@ -24,22 +24,11 @@
  macro(_find_header_file_in_dirs VAR NAME)
    unset(${VAR})
    unset(${VAR} CACHE)

@@ -8,11 +8,11 @@ This makes the documentation build reproducibly.
  doc/Doxyfile.in    | 2 +-
  2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/doc/CMakeLists.txt b/doc/CMakeLists.txt
-index c19fe96..4068514 100644
---- a/doc/CMakeLists.txt
-+++ b/doc/CMakeLists.txt
-@@ -27,6 +27,7 @@ if(DOXYGEN_FOUND)
+Index: opencv/doc/CMakeLists.txt
+===================================================================
+--- opencv.orig/doc/CMakeLists.txt	2024-12-11 01:59:53.335043595 +0000
++++ opencv/doc/CMakeLists.txt	2024-12-11 01:59:53.335043595 +0000
+@@ -36,6 +36,7 @@
  
    # gathering headers
    set(paths_include)
@@ -20,7 +20,7 @@ index c19fe96..4068514 100644
    set(paths_doc)
    set(paths_bib)
    set(paths_sample)
-@@ -63,6 +64,7 @@ if(DOXYGEN_FOUND)
+@@ -72,6 +73,7 @@
            endif()
          endif()
        endif()
@@ -28,7 +28,7 @@ index c19fe96..4068514 100644
        # doc folder
        set(docs_dir "${OPENCV_MODULE_opencv_${m}_LOCATION}/doc")
        if(EXISTS "${docs_dir}")
-@@ -166,7 +168,7 @@ if(DOXYGEN_FOUND)
+@@ -175,7 +177,7 @@
    string(REPLACE ";" " " CMAKE_DOXYGEN_ENABLED_SECTIONS "${CMAKE_DOXYGEN_ENABLED_SECTIONS}")
    # TODO: remove paths_doc from EXAMPLE_PATH after face module tutorials/samples moved to separate folders
    string(REPLACE ";" " \\\n" CMAKE_DOXYGEN_EXAMPLE_PATH  "${example_path} ; ${paths_doc} ; ${paths_sample}")
@@ -37,11 +37,11 @@ index c19fe96..4068514 100644
    set(CMAKE_DOXYGEN_LAYOUT "${CMAKE_CURRENT_BINARY_DIR}/DoxygenLayout.xml")
    set(CMAKE_DOXYGEN_OUTPUT_PATH "doxygen")
    set(CMAKE_DOXYGEN_MAIN_REFERENCE "${refs_main}")
-diff --git a/doc/Doxyfile.in b/doc/Doxyfile.in
-index ce207d3..91cfb4c 100644
---- a/doc/Doxyfile.in
-+++ b/doc/Doxyfile.in
-@@ -22,7 +22,7 @@ ABBREVIATE_BRIEF       = "The $name class" \
+Index: opencv/doc/Doxyfile.in
+===================================================================
+--- opencv.orig/doc/Doxyfile.in	2024-12-11 01:59:53.335043595 +0000
++++ opencv/doc/Doxyfile.in	2024-12-11 01:59:53.335043595 +0000
+@@ -25,7 +25,7 @@
  ALWAYS_DETAILED_SEC    = NO
  INLINE_INHERITED_MEMB  = NO
  FULL_PATH_NAMES        = YES

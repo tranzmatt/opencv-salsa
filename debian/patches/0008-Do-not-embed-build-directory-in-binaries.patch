@@ -10,11 +10,11 @@ This makes the opencv core module build reproducibly.
  modules/core/src/utils/datafile.cpp           | 48 +--------------------------
  4 files changed, 5 insertions(+), 61 deletions(-)
 
-diff --git a/modules/core/CMakeLists.txt b/modules/core/CMakeLists.txt
-index b78bb98..d96b669 100644
---- a/modules/core/CMakeLists.txt
-+++ b/modules/core/CMakeLists.txt
-@@ -188,16 +188,6 @@ if(OPENCV_OTHER_INSTALL_PATH)
+Index: opencv/modules/core/CMakeLists.txt
+===================================================================
+--- opencv.orig/modules/core/CMakeLists.txt	2024-12-11 01:59:53.187047726 +0000
++++ opencv/modules/core/CMakeLists.txt	2024-12-11 01:59:53.183047838 +0000
+@@ -215,16 +215,6 @@
  ")
  endif()
  
@@ -31,11 +31,11 @@ index b78bb98..d96b669 100644
  if(WIN32)
    file(RELATIVE_PATH INSTALL_DATA_DIR_RELATIVE "${CMAKE_INSTALL_PREFIX}/${OPENCV_BIN_INSTALL_PATH}" "${CMAKE_INSTALL_PREFIX}/${OPENCV_OTHER_INSTALL_PATH}")
  else()
-diff --git a/modules/core/include/opencv2/core/private.hpp b/modules/core/include/opencv2/core/private.hpp
-index 146d37f..dd675bc 100644
---- a/modules/core/include/opencv2/core/private.hpp
-+++ b/modules/core/include/opencv2/core/private.hpp
-@@ -818,10 +818,10 @@ Search directories:
+Index: opencv/modules/core/include/opencv2/core/private.hpp
+===================================================================
+--- opencv.orig/modules/core/include/opencv2/core/private.hpp	2024-12-11 01:59:53.187047726 +0000
++++ opencv/modules/core/include/opencv2/core/private.hpp	2024-12-11 01:59:53.183047838 +0000
+@@ -825,10 +825,10 @@
  2. Check path specified by configuration parameter with "_HINT" suffix (name of environment variable).
  3. Check path specified by configuration parameter (name of environment variable).
     If parameter value is not empty and nothing is found then stop searching.
@@ -48,11 +48,11 @@ index 146d37f..dd675bc 100644
  6. Scan `<install>/share/OpenCV` directory if install directory is detected.
  
  @param relative_path Relative path to data file
-diff --git a/modules/core/include/opencv2/core/utility.hpp b/modules/core/include/opencv2/core/utility.hpp
-index 108c0d9..f15d9ea 100644
---- a/modules/core/include/opencv2/core/utility.hpp
-+++ b/modules/core/include/opencv2/core/utility.hpp
-@@ -1163,10 +1163,10 @@ Search directories:
+Index: opencv/modules/core/include/opencv2/core/utility.hpp
+===================================================================
+--- opencv.orig/modules/core/include/opencv2/core/utility.hpp	2024-12-11 01:59:53.187047726 +0000
++++ opencv/modules/core/include/opencv2/core/utility.hpp	2024-12-11 01:59:53.183047838 +0000
+@@ -1165,10 +1165,10 @@
  2. OPENCV_SAMPLES_DATA_PATH_HINT environment variable
  3. OPENCV_SAMPLES_DATA_PATH environment variable
     If parameter value is not empty and nothing is found then stop searching.
@@ -65,11 +65,11 @@ index 108c0d9..f15d9ea 100644
  6. Scan `<install>/share/OpenCV` directory if install directory is detected.
  
  @see cv::utils::findDataFile
-diff --git a/modules/core/src/utils/datafile.cpp b/modules/core/src/utils/datafile.cpp
-index 3af83a5..6bda857 100644
---- a/modules/core/src/utils/datafile.cpp
-+++ b/modules/core/src/utils/datafile.cpp
-@@ -280,32 +280,8 @@ cv::String findDataFile(const cv::String& relative_path,
+Index: opencv/modules/core/src/utils/datafile.cpp
+===================================================================
+--- opencv.orig/modules/core/src/utils/datafile.cpp	2024-12-11 01:59:53.187047726 +0000
++++ opencv/modules/core/src/utils/datafile.cpp	2024-12-11 01:59:53.183047838 +0000
+@@ -280,32 +280,8 @@
  
  
      // Steps: 4, 5, 6
@@ -103,7 +103,7 @@ index 3af83a5..6bda857 100644
      for (int levels = 0; levels < 3; ++levels)
      {
          if (utils::fs::exists(utils::fs::join(try_source_dir, "modules/core/include/opencv2/core/version.hpp")))
-@@ -341,28 +317,6 @@ cv::String findDataFile(const cv::String& relative_path,
+@@ -341,28 +317,6 @@
          CV_LOG_INFO(NULL, "Can't detect module binaries location");
      }
  

@@ -1,5 +1,7 @@
---- a/cmake/OpenCVDetectOpenCL.cmake
-+++ b/cmake/OpenCVDetectOpenCL.cmake
+Index: opencv/cmake/OpenCVDetectOpenCL.cmake
+===================================================================
+--- opencv.orig/cmake/OpenCVDetectOpenCL.cmake	2024-12-11 01:59:52.939054649 +0000
++++ opencv/cmake/OpenCVDetectOpenCL.cmake	2024-12-11 01:59:52.935054761 +0000
 @@ -5,7 +5,6 @@
  else()
    set(OPENCL_LIBRARY "" CACHE STRING "OpenCL library")
