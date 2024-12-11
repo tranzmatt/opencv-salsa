@@ -63,10 +63,6 @@ Copyright: 2014, 2015, The Regents of the University of California
 License: BSD-2-Clause
 Comment: upstream copied these files from src:caffe
 
-Files: cmake/OpenCVFindTengine.cmake
-Copyright: 2020, OPEN AI LAB
-License: Apache-2.0
-
 # /* contrib */
 
 Files: contrib/modules/ximgproc/src/scansegment.cpp
@@ -97,11 +93,6 @@ Copyright: 2000-2008, Intel Corporation, all rights reserved.
 License: BSD-3-Clause
 
 # /* platforms */ 
-
-Files: platforms/android/android.toolchain.cmake
-Copyright: 2010-2011, Ethan Rublee
-           2011-2014, Andrey Kamaev
-License: BSD-3-Clause
 
 Files: platforms/winrt/*
 Copyright: Microsoft Open Technologies, Inc.
@@ -150,10 +141,6 @@ License: Apache-2.0
 Files: modules/core/3rdparty/SoftFloat/*
 Copyright: 2017 John R. Hauser
 License: BSD-3-Clause
-
-Files: modules/dnn/src/tengine4dnn/*
-Copyright: 2020, OPEN AI LAB
-License: Apache-2.0
 
 Files: modules/dnn/src/onnx/opencv-onnx.proto
 Copyright: 2018 Facebook Inc. and Microsoft Corporation
