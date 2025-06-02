@@ -1,0 +1,3 @@
+usr/include/opencv4/opencv2/cudaimgproc.hpp
+usr/lib/*/libopencv_cudaimgproc.so
+usr/lib/*/libopencv_cudaimgproc.a

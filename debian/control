@@ -57,6 +57,12 @@ Build-Depends: dpkg-dev (>= 1.22.5), ant [!hppa !hurd-any !kfreebsd-any],
                python3-bs4,
                python3-imath,
                qtbase5-dev,
+               libcublas-dev-12-8,
+               libcudnn9-dev,
+               libcufft-dev-12-8,
+               libcurand-dev-12-8,
+               libnpp-dev-12-8,
+               cuda-toolkit-12-8,  
                zlib1g-dev
 Standards-Version: 4.6.1
 Vcs-Browser: https://salsa.debian.org/science-team/opencv
@@ -98,6 +104,7 @@ Depends: libopencv-calib3d-dev (= ${binary:Version}),
          libopencv-imgproc-dev (= ${binary:Version}),
          libopencv-ml-dev (= ${binary:Version}),
          libopencv-objdetect-dev (= ${binary:Version}),
+         libopencv-ovis-dev (= ${binary:Version}),
          libopencv-photo-dev (= ${binary:Version}),
          libopencv-shape-dev (= ${binary:Version}),
          libopencv-stitching-dev (= ${binary:Version}),
@@ -1015,6 +1022,9 @@ Depends: libopencv-calib3d-dev (= ${binary:Version}),
          libopencv-videoio-dev (= ${binary:Version}),
          libopencv-videostab-dev (= ${binary:Version}),
          libopencv-viz-dev (= ${binary:Version}),
+         libopencv-cudaarithm-dev (= ${binary:Version}) [amd64 arm64],
+         libopencv-cudaimgproc-dev (= ${binary:Version}) [amd64 arm64],
+         libopencv-cudev-dev (= ${binary:Version}) [amd64 arm64],
          ${misc:Depends}
 Description: development files for libopencv-contrib410
  This package contains the header files and static library needed to compile
@@ -1148,3 +1158,305 @@ Description: Python 3 bindings for the computer vision library
  of high level functionalities for video acquisition, image processing and
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
+
+Package: libopencv-ovis410
+Architecture: any
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Description: computer vision Object Oriented Visualization library
+ This package contains the OpenCV (Open Computer Vision) OVIS runtime library.
+ .
+ The Open Computer Vision Library is a collection of algorithms and sample
+ code for various computer vision problems. The library is compatible with
+ IPL (Intel's Image Processing Library) and, if available, can use IPP
+ (Intel's Integrated Performance Primitives) for better performance.
+ .
+ This package provides OpenCV visualization module with OGRE 3D support
+ for advanced 3D visualization capabilities.
+
+Package: libopencv-ovis-dev
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-ovis410 (= ${binary:Version}),
+         libopencv-core-dev (= ${binary:Version}),
+         libopencv-imgproc-dev (= ${binary:Version}),
+         libopencv-highgui-dev (= ${binary:Version}),
+         libogre-1.12-dev,
+         ${misc:Depends}
+Description: development files for opencv_ovis
+ This package contains the header files and static library needed to compile
+ applications or shared objects that use opencv_ovis.
+ .
+ The Open Computer Vision Library is a collection of algorithms and sample
+ code for various computer vision problems. The library is compatible with
+ IPL (Intel's Image Processing Library) and, if available, can use IPP
+ (Intel's Integrated Performance Primitives) for better performance.
+ .
+ This package provides development files for the OpenCV visualization module
+ with OGRE 3D support for advanced 3D visualization capabilities.
+
+Package: libopencv-cudaimgproc410
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Description: computer vision CUDA Image Processing library
+ This package contains the OpenCV CUDA-accelerated image processing runtime library.
+ .
+ This package provides CUDA-accelerated image processing functions.
+
+Package: libopencv-cudaimgproc-dev
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-cudaimgproc410 (= ${binary:Version}),
+         libopencv-core-dev (= ${binary:Version}),
+         libopencv-imgproc-dev (= ${binary:Version}),
+         nvidia-cuda-dev,
+         ${misc:Depends}
+Description: development files for opencv_cudaimgproc
+ This package contains the header files and static library needed to compile
+ applications or shared objects that use opencv_cudaimgproc.
+
+Package: libopencv-cudaarithm410
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Description: computer vision CUDA Arithmetic library
+ This package contains the OpenCV CUDA-accelerated arithmetic operations runtime library.
+
+Package: libopencv-cudaarithm-dev
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-cudaarithm410 (= ${binary:Version}),
+         libopencv-core-dev (= ${binary:Version}),
+         nvidia-cuda-dev,
+         ${misc:Depends}
+Description: development files for opencv_cudaarithm
+ This package contains the header files and static library needed to compile
+ applications or shared objects that use opencv_cudaarithm.
+
+Package: libopencv-cudev-dev
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-core-dev (= ${binary:Version}),
+         nvidia-cuda-dev,
+         ${misc:Depends}
+Description: development files for opencv_cudev
+ This package contains the header files needed to compile applications
+ or shared objects that use opencv_cudev.
+
+# Individual CUDA Runtime Packages
+Package: libopencv-cudabgsegm410
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: OpenCV CUDA background segmentation library
+
+Package: libopencv-cudacodec410
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: OpenCV CUDA video codec library
+
+Package: libopencv-cudafeatures2d410
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: OpenCV CUDA 2D features library
+
+Package: libopencv-cudafilters410
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: OpenCV CUDA image filtering library
+
+Package: libopencv-cudalegacy410
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: OpenCV CUDA legacy algorithms library
+
+Package: libopencv-cudaobjdetect410
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: OpenCV CUDA object detection library
+
+Package: libopencv-cudaoptflow410
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: OpenCV CUDA optical flow library
+
+Package: libopencv-cudastereo410
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: OpenCV CUDA stereo vision library
+
+Package: libopencv-cudawarping410
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: OpenCV CUDA image warping library
+
+Package: libopencv-cudev410
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: OpenCV CUDA device layer library
+
+# Individual CUDA Development Packages
+Package: libopencv-cudabgsegm-dev
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-cudabgsegm410 (= ${binary:Version}),
+         libopencv-core-dev (= ${binary:Version}),
+         nvidia-cuda-dev,
+         ${misc:Depends}
+Description: OpenCV CUDA background segmentation development files
+
+Package: libopencv-cudacodec-dev
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-cudacodec410 (= ${binary:Version}),
+         libopencv-core-dev (= ${binary:Version}),
+         nvidia-cuda-dev,
+         ${misc:Depends}
+Description: OpenCV CUDA video codec development files
+
+Package: libopencv-cudafeatures2d-dev
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-cudafeatures2d410 (= ${binary:Version}),
+         libopencv-core-dev (= ${binary:Version}),
+         nvidia-cuda-dev,
+         ${misc:Depends}
+Description: OpenCV CUDA 2D features development files
+
+Package: libopencv-cudafilters-dev
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-cudafilters410 (= ${binary:Version}),
+         libopencv-core-dev (= ${binary:Version}),
+         nvidia-cuda-dev,
+         ${misc:Depends}
+Description: OpenCV CUDA image filtering development files
+
+Package: libopencv-cudalegacy-dev
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-cudalegacy410 (= ${binary:Version}),
+         libopencv-core-dev (= ${binary:Version}),
+         nvidia-cuda-dev,
+         ${misc:Depends}
+Description: OpenCV CUDA legacy algorithms development files
+
+Package: libopencv-cudaobjdetect-dev
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-cudaobjdetect410 (= ${binary:Version}),
+         libopencv-core-dev (= ${binary:Version}),
+         nvidia-cuda-dev,
+         ${misc:Depends}
+Description: OpenCV CUDA object detection development files
+
+Package: libopencv-cudaoptflow-dev
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-cudaoptflow410 (= ${binary:Version}),
+         libopencv-core-dev (= ${binary:Version}),
+         nvidia-cuda-dev,
+         ${misc:Depends}
+Description: OpenCV CUDA optical flow development files
+
+Package: libopencv-cudastereo-dev
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-cudastereo410 (= ${binary:Version}),
+         libopencv-core-dev (= ${binary:Version}),
+         nvidia-cuda-dev,
+         ${misc:Depends}
+Description: OpenCV CUDA stereo vision development files
+
+Package: libopencv-cudawarping-dev
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-cudawarping410 (= ${binary:Version}),
+         libopencv-core-dev (= ${binary:Version}),
+         nvidia-cuda-dev,
+         ${misc:Depends}
+Description: OpenCV CUDA image warping development files
+
+# CUDA Metapackages
+Package: libopencv-cuda410
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libs
+Depends: libopencv-cudaarithm410 (= ${binary:Version}),
+         libopencv-cudabgsegm410 (= ${binary:Version}),
+         libopencv-cudacodec410 (= ${binary:Version}),
+         libopencv-cudafeatures2d410 (= ${binary:Version}),
+         libopencv-cudafilters410 (= ${binary:Version}),
+         libopencv-cudaimgproc410 (= ${binary:Version}),
+         libopencv-cudalegacy410 (= ${binary:Version}),
+         libopencv-cudaobjdetect410 (= ${binary:Version}),
+         libopencv-cudaoptflow410 (= ${binary:Version}),
+         libopencv-cudastereo410 (= ${binary:Version}),
+         libopencv-cudawarping410 (= ${binary:Version}),
+         libopencv-cudev410 (= ${binary:Version}),
+         ${misc:Depends}
+Description: OpenCV CUDA runtime libraries (metapackage)
+ This metapackage installs all OpenCV CUDA runtime libraries for GPU-accelerated
+ computer vision operations.
+
+Package: libopencv-cuda-dev
+Architecture: amd64 arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libopencv-cuda410 (= ${binary:Version}),
+         libopencv-cudaarithm-dev (= ${binary:Version}),
+         libopencv-cudabgsegm-dev (= ${binary:Version}),
+         libopencv-cudacodec-dev (= ${binary:Version}),
+         libopencv-cudafeatures2d-dev (= ${binary:Version}),
+         libopencv-cudafilters-dev (= ${binary:Version}),
+         libopencv-cudaimgproc-dev (= ${binary:Version}),
+         libopencv-cudalegacy-dev (= ${binary:Version}),
+         libopencv-cudaobjdetect-dev (= ${binary:Version}),
+         libopencv-cudaoptflow-dev (= ${binary:Version}),
+         libopencv-cudastereo-dev (= ${binary:Version}),
+         libopencv-cudawarping-dev (= ${binary:Version}),
+         libopencv-cudev-dev (= ${binary:Version}),
+         nvidia-cuda-dev,
+         ${misc:Depends}
+Description: OpenCV CUDA development files (metapackage)
+ This metapackage installs all OpenCV CUDA development files for building
+ applications with GPU-accelerated computer vision operations.

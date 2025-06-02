@@ -280,32 +280,8 @@ cv::String findDataFile(const cv::String& relative_path,
 
 
     // Steps: 4, 5, 6
-    cv::String cwd = utils::fs::getcwd();
-    cv::String build_dir(OPENCV_BUILD_DIR);
-    bool has_tested_build_directory = false;
-    if (isSubDirectory(build_dir, cwd) || isSubDirectory(utils::fs::canonical(build_dir), utils::fs::canonical(cwd)))
-    {
-        CV_LOG_DEBUG(NULL, "utils::findDataFile(): the current directory is build sub-directory: " << cwd);
-        const char* build_subdirs[] = { OPENCV_DATA_BUILD_DIR_SEARCH_PATHS };
-        for (size_t k = 0; k < sizeof(build_subdirs)/sizeof(build_subdirs[0]); k++)
-        {
-            CV_LOG_DEBUG(NULL, "utils::findDataFile(): <build>/" << build_subdirs[k]);
-            cv::String datapath = utils::fs::join(build_dir, build_subdirs[k]);
-            if (utils::fs::isDirectory(datapath))
-            {
-                for(size_t i = search_subdir.size(); i > 0; i--)
-                {
-                    const cv::String& subdir = search_subdir[i - 1];
-                    cv::String prefix = utils::fs::join(datapath, subdir);
-                    TRY_FILE_WITH_PREFIX(prefix);
-                }
-            }
-        }
-        has_tested_build_directory = true;
-    }
-
     cv::String source_dir;
-    cv::String try_source_dir = cwd;
+    cv::String try_source_dir = utils::fs::getcwd();
     for (int levels = 0; levels < 3; ++levels)
     {
         if (utils::fs::exists(utils::fs::join(try_source_dir, "modules/core/include/opencv2/core/version.hpp")))
@@ -339,28 +315,6 @@ cv::String findDataFile(const cv::String& relative_path,
     else
     {
         CV_LOG_INFO(NULL, "Can't detect module binaries location");
-    }
-
-    if (!has_tested_build_directory &&
-        (isSubDirectory(build_dir, module_path) || isSubDirectory(utils::fs::canonical(build_dir), utils::fs::canonical(module_path)))
-    )
-    {
-        CV_LOG_DEBUG(NULL, "utils::findDataFile(): the binary module directory is build sub-directory: " << module_path);
-        const char* build_subdirs[] = { OPENCV_DATA_BUILD_DIR_SEARCH_PATHS };
-        for (size_t k = 0; k < sizeof(build_subdirs)/sizeof(build_subdirs[0]); k++)
-        {
-            CV_LOG_DEBUG(NULL, "utils::findDataFile(): <build>/" << build_subdirs[k]);
-            cv::String datapath = utils::fs::join(build_dir, build_subdirs[k]);
-            if (utils::fs::isDirectory(datapath))
-            {
-                for(size_t i = search_subdir.size(); i > 0; i--)
-                {
-                    const cv::String& subdir = search_subdir[i - 1];
-                    cv::String prefix = utils::fs::join(datapath, subdir);
-                    TRY_FILE_WITH_PREFIX(prefix);
-                }
-            }
-        }
     }
 
 #if defined OPENCV_INSTALL_DATA_DIR_RELATIVE

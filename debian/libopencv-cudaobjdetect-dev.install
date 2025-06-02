@@ -1,0 +1,3 @@
+usr/include/opencv4/opencv2/cudaobjdetect.hpp
+usr/lib/*/libopencv_cudaobjdetect.so
+usr/lib/*/libopencv_cudaobjdetect.a

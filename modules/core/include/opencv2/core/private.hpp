@@ -825,10 +825,10 @@ Search directories:
 2. Check path specified by configuration parameter with "_HINT" suffix (name of environment variable).
 3. Check path specified by configuration parameter (name of environment variable).
    If parameter value is not empty and nothing is found then stop searching.
-4. Detects build/install path based on:
+4. Detects install path based on:
    a. current working directory (CWD)
    b. and/or binary module location (opencv_core/opencv_world, doesn't work with static linkage)
-5. Scan `<source>/{,data}` directories if build directory is detected or the current directory is in source tree.
+5. Scan `<source>/{,data}` directories if the current directory is in source tree.
 6. Scan `<install>/share/OpenCV` directory if install directory is detected.
 
 @param relative_path Relative path to data file

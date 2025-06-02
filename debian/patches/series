@@ -4,3 +4,4 @@ cmake-dont-install-inexistent-files.patch
 0008-Do-not-embed-build-directory-in-binaries.patch
 0009-Do-not-embed-build-directory-in-documentation.patch
 cmake-no-download.patch
+quirc.patch
