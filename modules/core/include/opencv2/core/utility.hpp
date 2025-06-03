@@ -1165,10 +1165,10 @@ Search directories:
 2. OPENCV_SAMPLES_DATA_PATH_HINT environment variable
 3. OPENCV_SAMPLES_DATA_PATH environment variable
    If parameter value is not empty and nothing is found then stop searching.
-4. Detects build/install path based on:
+4. Detects install path based on:
    a. current working directory (CWD)
    b. and/or binary module location (opencv_core/opencv_world, doesn't work with static linkage)
-5. Scan `<source>/{,data,samples/data}` directories if build directory is detected or the current directory is in source tree.
+5. Scan `<source>/{,data,samples/data}` directories if the current directory is in source tree.
 6. Scan `<install>/share/OpenCV` directory if install directory is detected.
 
 @see cv::utils::findDataFile

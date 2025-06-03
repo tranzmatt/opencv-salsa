@@ -55,6 +55,9 @@ endif
 # For Java
 export JAVA_HOME=/usr/lib/jvm/default-java
 
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4.7.0
+export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+
 CMAKE_FLAGS = \
 	-GNinja \
 	-DANT_EXECUTABLE=/usr/bin/ant \
@@ -67,7 +70,6 @@ CMAKE_FLAGS = \
 	-DBUILD_opencv_face=ON \
 	-DBUILD_opencv_python2=OFF \
 	-DBUILD_opencv_python3=OFF \
-        -DBUILD_opencv_ovis=ON \
 	-DCMAKE_BUILD_TYPE=Release	\
 	-DCMAKE_CXX_FLAGS_RELEASE="$(CXXFLAGS)" \
 	-DCMAKE_C_FLAGS_RELEASE="$(CFLAGS)" \
@@ -76,6 +78,8 @@ CMAKE_FLAGS = \
 	-DCMAKE_INSTALL_PREFIX=/usr \
 	-DCMAKE_SKIP_RPATH=ON \
 	-DCMAKE_VERBOSE_MAKEFILE=ON \
+        -DCURL_INCLUDE_DIR=/usr/include/curl \
+	-DCURL_LIBRARY=/usr/lib/x86_64-linux-gnu/libcurl.so.4.7.0 \
 	-DENABLE_PRECOMPILED_HEADERS=OFF \
 	-DINSTALL_C_EXAMPLES=ON	\
 	-DINSTALL_PYTHON_EXAMPLES=ON \
