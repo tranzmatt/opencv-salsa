@@ -1,0 +1,3 @@
+usr/include/opencv4/opencv2/cudaarithm.hpp
+usr/lib/*/libopencv_cudaarithm.so
+usr/lib/*/libopencv_cudaarithm.a

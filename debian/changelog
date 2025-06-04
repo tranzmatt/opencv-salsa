@@ -1,3 +1,13 @@
+opencv (4.10.0+dfsg-1ubuntu1+cuda12.8) jammy; urgency=medium
+
+  * Upgrade to OpenCV 4.10.0
+  * Enable CUDA 12.8 support with GPU acceleration
+    - Add CUDA build dependencies
+    - Enable CUDA compilation with architecture targets 8.0,8.6,8.7,8.9,9.0
+    - Enable CUDA DNN acceleration
+
+ -- Matt Clark <matt.clark@ves.solutions> Tue, 03 Jun 2025 23:40:09 -0500
+
 opencv (4.10.0+dfsg-1) experimental; urgency=medium
 
   * New upstream version 4.10.0+dfsg

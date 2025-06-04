@@ -1,0 +1,3 @@
+usr/include/opencv4/opencv2/cudacodec.hpp
+usr/lib/*/libopencv_cudacodec.so
+usr/lib/*/libopencv_cudacodec.a

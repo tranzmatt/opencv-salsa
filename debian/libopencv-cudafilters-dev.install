@@ -1,0 +1,3 @@
+usr/include/opencv4/opencv2/cudafilters.hpp
+usr/lib/*/libopencv_cudafilters.so
+usr/lib/*/libopencv_cudafilters.a

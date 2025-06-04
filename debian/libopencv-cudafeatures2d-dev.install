@@ -1,0 +1,3 @@
+usr/include/opencv4/opencv2/cudafeatures2d.hpp
+usr/lib/*/libopencv_cudafeatures2d.so
+usr/lib/*/libopencv_cudafeatures2d.a

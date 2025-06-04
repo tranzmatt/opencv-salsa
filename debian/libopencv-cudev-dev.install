@@ -1,0 +1,4 @@
+usr/include/opencv4/opencv2/cudev.hpp
+usr/include/opencv4/opencv2/cudev/
+usr/lib/*/libopencv_cudev.so
+usr/lib/*/libopencv_cudev.a
