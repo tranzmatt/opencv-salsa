@@ -2,15 +2,11 @@ opencv (4.10.0+dfsg-1ubuntu1+cuda12.8) noble; urgency=medium
 
   * Upgrade to OpenCV 4.10.0
   * Enable CUDA 12.8 support with GPU acceleration
-    - Add CUDA build dependencies (nvidia-cuda-dev, libcublas-dev, etc.)
+    - Add CUDA build dependencies
     - Enable CUDA compilation with architecture targets 8.0,8.6,8.7,8.9,9.0
-    - Add CUDA modules: cudaimgproc, cudaarithm, cudev
-    - Enable CUDA DNN acceleration (OPENCV_DNN_CUDA=ON)
-  * Add OVIS (OGRE visualization) module support
-    - Add libogre-1.12-dev build dependency
-    - Add libopencv-ovis410 and libopencv-ovis-dev packages
+    - Enable CUDA DNN acceleration
 
- -- Matthew Clark <matt.clark@ves.solutions>  Fri, 30 May 2025 15:00:00 -0400
+ -- Matt Clark <matt.clark@ves.solutions> Tue, 03 Jun 2025 23:40:09 -0500
 
 opencv (4.10.0+dfsg-1) experimental; urgency=medium
 
