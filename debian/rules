@@ -65,6 +65,8 @@ export CUDA_SDK_ROOT_DIR=/usr/local/cuda-12.8
 export CUDA_BIN_PATH=/usr/local/cuda-12.8/bin
 export CUDA_INCLUDE_DIRS=/usr/local/cuda-12.8/include
 
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4.7.0
+
 export DEB_DH_GENCONTROL_ARGS := -- -Vt64:Provides= -Vt64:Replaces= -Vt64:Breaks=
 
 CMAKE_FLAGS = \
