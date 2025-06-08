@@ -58,7 +58,7 @@ export JAVA_HOME=/usr/lib/jvm/default-java
 export CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-12.8
 export CUDA_BIN_DIR=/usr/local/cuda-12.8/bin
 export CUDA_ROOT=/usr/local/cuda-12.8
-
+export CUDAToolkit_ROOT=/usr/local/cuda-12.8
 
 CMAKE_FLAGS = \
 	-GNinja \
@@ -93,21 +93,24 @@ CMAKE_FLAGS = \
 	-DPROTOBUF_UPDATE_FILES=ON \
 	-DWITH_ADE=OFF \
 	-DWITH_CAROTENE=OFF \
-        -DWITH_CUDA=ON \
-        -DCUDA_ARCH_BIN="8.0,8.6,8.7,8.9,9.0" \
-        -DCUDA_FAST_MATH=ON \
-        -DOPENCV_DNN_CUDA=ON \
-        -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-12.8 \
-        -DWITH_CUBLAS=ON \
-        -DWITH_CUFFT=ON \
-        -DWITH_CURAND=ON \
-        -DWITH_CUDNN=ON \
-        -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF \
-        -DCUDA_SEPARABLE_COMPILATION=OFF \
-        -DCUDA_NVCC_FLAGS="-Xcompiler -fno-lto" \
+	-DWITH_CUDA=ON \
+	-DCUDA_ARCH_BIN="8.0,8.6,8.7,8.9,9.0" \
+	-DCUDA_FAST_MATH=ON \
+	-DOPENCV_DNN_CUDA=ON \
+	-DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-12.8 \
+	-DCUDAToolkit_ROOT=/usr/local/cuda-12.8 \
+	-DCUDA_CUDA_LIBRARY=/usr/local/cuda-12.8/lib64/stubs/libcuda.so \
+	-DCUDA_CUDART_LIBRARY=/usr/local/cuda-12.8/lib64/libcudart.so \
+	-DWITH_CUBLAS=ON \
+	-DWITH_CUFFT=ON \
+	-DWITH_CURAND=ON \
+	-DWITH_CUDNN=ON \
+	-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF \
+	-DCUDA_SEPARABLE_COMPILATION=OFF \
+	-DCUDA_NVCC_FLAGS="-Xcompiler -fno-lto" \
 	-DWITH_EIGEN=ON \
 	-DWITH_FFMPEG=ON \
-        -DWITH_FLATBUFFERS=OFF \
+	-DWITH_FLATBUFFERS=OFF \
 	-DWITH_GDAL=ON \
 	-DWITH_GDCM=ON \
 	-DWITH_GSTREAMER=ON \
@@ -163,6 +166,14 @@ override_dh_auto_configure:
 	dh_auto_configure -S pybuild \
 		-- --name=opencv --system=custom --configure-args "\
 			dh_auto_configure -S cmake -D modules/python -B {build_dir} -- \
+				-DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
+				-DCMAKE_POLICY_DEFAULT_CMP0146=OLD \
+				-DCMAKE_POLICY_DEFAULT_CMP0148=OLD \
+				-DWITH_CUDA=ON \
+				-DCUDA_GENERATION=Auto \
+				-DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-12.8 \
+				-DCMAKE_PREFIX_PATH=/usr/local/cuda-12.8 \
+				-DCUDAToolkit_ROOT=/usr/local/cuda-12.8 \
 				-GNinja \
 				-DCMAKE_SKIP_RPATH=ON \
 				-DOpenCV_BINARY_DIR=$(CURDIR)/$(BUILDDIR) \
@@ -214,3 +225,7 @@ execute_before_dh_strip_nondeterminism-indep:
 	# there will be nothing to strip anymore.
 	sed -i -e 's,$(CURDIR)/\($(BUILDDIR)/\)\?,,g' \
 		debian/opencv-doc/usr/share/doc/opencv-doc/opencv4/html/opencv.tag
+
+override_dh_shlibdeps:
+	dh_shlibdeps -l/usr/local/cuda-12.8/lib64:/usr/local/cuda-12.8/targets/x86_64-linux/lib \
+		--dpkg-shlibdeps-params=--ignore-missing-info
