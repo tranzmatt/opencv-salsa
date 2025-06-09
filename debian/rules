@@ -65,7 +65,7 @@ export CUDA_SDK_ROOT_DIR=/usr/local/cuda-12.8
 export CUDA_BIN_PATH=/usr/local/cuda-12.8/bin
 export CUDA_INCLUDE_DIRS=/usr/local/cuda-12.8/include
 
-export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4.7.0
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4.8.0
 
 export DEB_DH_GENCONTROL_ARGS := -- -Vt64:Provides= -Vt64:Replaces= -Vt64:Breaks=
 
@@ -90,7 +90,7 @@ CMAKE_FLAGS = \
 	-DCMAKE_SKIP_RPATH=ON \
 	-DCMAKE_VERBOSE_MAKEFILE=ON \
         -DCURL_INCLUDE_DIR=/usr/include/curl \
-	-DCURL_LIBRARY=/usr/lib/x86_64-linux-gnu/libcurl.so.4.7.0 \
+	-DCURL_LIBRARY=/usr/lib/x86_64-linux-gnu/libcurl.so.4.8.0 \
 	-DENABLE_PRECOMPILED_HEADERS=OFF \
 	-DINSTALL_C_EXAMPLES=ON	\
 	-DINSTALL_PYTHON_EXAMPLES=ON \
@@ -166,14 +166,14 @@ override_dh_auto_configure:
 	# prepare the 3rd party directory
 	test -d 3rdparty || cp -av debian/3rdparty-4.10.0 3rdparty
 	# dynamically linked
-	LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4.7.0 \
+	LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4.8.0 \
 	dh_auto_configure -B $(BUILDDIR) \
 		-- $(CMAKE_FLAGS) $(CMAKE_JAVA_FLAGS) \
 		-DCMAKE_SHARED_LINKER_FLAGS_RELEASE="$(LDFLAGS)" \
 		-DBUILD_SHARED_LIBS=ON -DBUILD_DOCS=ON \
 		-DBUILD_TESTS=OFF
 	# statically linked
-	LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4.7.0 \
+	LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4.8.0 \
 	dh_auto_configure -B $(BUILDDIR)-static \
 		-- $(CMAKE_FLAGS) \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_DOCS=OFF \
@@ -184,7 +184,7 @@ override_dh_auto_configure:
 	CUDA_ROOT=/usr/local/cuda-12.8 \
 	CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-12.8 \
 	PATH=/usr/local/cuda-12.8/bin:$$PATH \
-	LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4.7.0 \
+	LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4.8.0 \
 	dh_auto_configure -S pybuild \
 		-- --name=opencv --system=custom --configure-args "\
 			dh_auto_configure -S cmake -D modules/python -B {build_dir} -- \
@@ -208,7 +208,7 @@ override_dh_auto_build:
 	export CUDA_HOME=/usr/local/cuda-12.8 && \
 	export CUDA_ROOT=/usr/local/cuda-12.8 && \
 	export CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-12.8 && \
-	export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4.7.0 && \
+	export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libcurl.so.4.8.0 && \
 	\
 	dh_auto_build -B $(BUILDDIR) -- doxygen && \
 	\
